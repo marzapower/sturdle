@@ -1,0 +1,18 @@
+packages:
+  - "packages/*"
+  - "examples/*"
+allowBuilds:
+  # esbuild (vitest) and @swc/core / sharp (next) build real native binaries their
+  # functionality depends on. Nothing else is allowed to run a postinstall.
+  esbuild: true
+  sharp: true
+  "@swc/core": true
+# Supply-chain posture: wait a day before adopting a fresh release, keep the dependency tree
+# registry-only, and never accept a package that lost its provenance attestation.
+minimumReleaseAge: 1440
+blockExoticSubdeps: true
+trustPolicy: no-downgrade
+trustPolicyExclude:
+  # Old undici-types releases still get resolved by transitive @types/node ranges and predate
+  # npm provenance, tripping no-downgrade. Scoped exclusion, not a policy drop.
+  - undici-types

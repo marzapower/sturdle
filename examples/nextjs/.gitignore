@@ -1,0 +1,6 @@
+.next/
+next-env.d.ts
+*.tsbuildinfo
+# Written by `next build` / `next dev` (Next.js agent rules); the repository root has its own.
+AGENTS.md
+CLAUDE.md

@@ -1,0 +1,85 @@
+{
+  "name": "@sturdle/ui",
+  "version": "0.1.0",
+  "description": "Design tokens and presentational React components for the Sturdle job console.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "sturdle-source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./mark": {
+      "sturdle-source": "./src/components/SturdleMark.tsx",
+      "types": "./dist/components/SturdleMark.d.ts",
+      "import": "./dist/components/SturdleMark.js"
+    },
+    "./mark-geometry": {
+      "sturdle-source": "./src/lib/sturdle-mark.ts",
+      "types": "./dist/lib/sturdle-mark.d.ts",
+      "import": "./dist/lib/sturdle-mark.js"
+    },
+    "./styles/tokens.css": "./styles/tokens.css"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "styles",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marzapower/sturdle.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/marzapower/sturdle#readme",
+  "bugs": {
+    "url": "https://github.com/marzapower/sturdle/issues"
+  },
+  "keywords": [
+    "sturdle",
+    "react",
+    "components",
+    "design-tokens",
+    "tailwind",
+    "dashboard",
+    "job-queue"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.3.3",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.33.0",
+    "recharts": "^3.10.1",
+    "tailwind-merge": "^3.6.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.11"
+  }
+}

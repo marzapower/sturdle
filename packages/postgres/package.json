@@ -1,0 +1,61 @@
+{
+  "name": "@sturdle/postgres",
+  "version": "0.1.0",
+  "description": "Postgres storage adapter for @sturdle/engine, built on the raw pg driver with self-applying migrations in a dedicated schema.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "sturdle-source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marzapower/sturdle.git",
+    "directory": "packages/postgres"
+  },
+  "homepage": "https://github.com/marzapower/sturdle#readme",
+  "bugs": {
+    "url": "https://github.com/marzapower/sturdle/issues"
+  },
+  "keywords": [
+    "background-jobs",
+    "job-queue",
+    "postgres",
+    "postgresql",
+    "pg",
+    "sturdle",
+    "worker",
+    "typescript"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && node -e \"require('node:fs').cpSync('src/migrations', 'dist/migrations', { recursive: true })\""
+  },
+  "dependencies": {
+    "@sturdle/engine": "workspace:^",
+    "pg": "^8.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/pg": "^8.23.1",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.11"
+  }
+}

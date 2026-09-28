@@ -1,0 +1,61 @@
+{
+  "name": "@sturdle/engine",
+  "version": "0.1.0",
+  "description": "Durable background jobs, crons and step functions for TypeScript, storage-agnostic behind a small DatabaseAdapter interface.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "sturdle-source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marzapower/sturdle.git",
+    "directory": "packages/engine"
+  },
+  "homepage": "https://github.com/marzapower/sturdle#readme",
+  "bugs": {
+    "url": "https://github.com/marzapower/sturdle/issues"
+  },
+  "keywords": [
+    "background-jobs",
+    "job-queue",
+    "worker",
+    "cron",
+    "durable",
+    "workflow",
+    "steps",
+    "retry",
+    "typescript"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "rm -rf dist && tsc -p tsconfig.build.json"
+  },
+  "dependencies": {
+    "cron-parser": "^4.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "typescript": "~6.0.3",
+    "vitest": "^4.1.11"
+  }
+}

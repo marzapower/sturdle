@@ -1,0 +1,226 @@
+/*
+ * Sturdle design tokens — Tailwind v4 CSS-first theme.
+ *
+ * Single dark identity (no `.dark` class, no light mode): every token here is the
+ * dashboard's only palette, always active. `ink` are surfaces, `sand` is text, `plume` is
+ * the one accent (teal). Contrast (WCAG): sand-100/400/600, plume, amber, carmine and moss
+ * all clear 4.5:1 on ink-900/800/700 — `sand-600` is the floor for text, at 5.9:1 / 5.6:1 /
+ * 5.2:1 respectively. `ink-400` is not a text colour (~3:1 on ink-800/900): it is for
+ * neutral bars and control boundaries only, never for text.
+ *
+ * Raw HSL triplets (no `hsl()` wrapper) are kept as plain custom properties alongside the
+ * `--color-*` theme entries: a couple of components (the timeline's hatch fill) need to
+ * build their own `hsl(var(--x))` string in inline styles, which only works against the
+ * unwrapped triplet. The `--color-*` entries wrap them once so every Tailwind utility
+ * (`bg-*`, `text-*`, `border-*`, `fill-*`, `ring-*`) gets opacity-modifier support
+ * (`bg-carmine/10`) for free via Tailwind's `color-mix()` handling of CSS-variable colours.
+ */
+
+:root {
+  --ink-900: 227 33% 5.3%; /* page ground */
+  --ink-800: 225 27% 8.6%; /* panels, top bar */
+  --ink-700: 225 26% 12.2%; /* raised: hover, popovers, selected */
+  --ink-600: 227 22% 15.7%; /* hairlines */
+  --ink-500: 227 21% 21.4%; /* idle meter cells */
+  --ink-400: 227 20% 42%; /* neutral bars, control boundaries */
+  --sand-100: 228 25% 92%;
+  --sand-400: 224 13% 68%;
+  --sand-600: 224 12% 57.5%;
+  --plume: 173 73% 45%;
+  --amber: 39 85% 59%;
+  --carmine: 0 100% 71%;
+  --moss: 101 38% 58%;
+}
+
+@theme {
+  --color-ink-900: hsl(var(--ink-900));
+  --color-ink-800: hsl(var(--ink-800));
+  --color-ink-700: hsl(var(--ink-700));
+  --color-ink-600: hsl(var(--ink-600));
+  --color-ink-500: hsl(var(--ink-500));
+  --color-ink-400: hsl(var(--ink-400));
+  --color-sand-100: hsl(var(--sand-100));
+  --color-sand-400: hsl(var(--sand-400));
+  --color-sand-600: hsl(var(--sand-600));
+  --color-plume: hsl(var(--plume));
+  --color-amber: hsl(var(--amber));
+  --color-carmine: hsl(var(--carmine));
+  --color-moss: hsl(var(--moss));
+
+  /* The web app defines --font-onest/--font-jetbrains-mono (next/font/local); these
+     fall back to a full system-font stack so the package never blocks on a missing font. */
+  --font-sans:
+    var(--font-onest), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Bespoke type scale — not Tailwind's default. */
+  --text-xs: 0.75rem; /* 12px — meta */
+  --text-xs--line-height: 1.35;
+  --text-sm: 0.875rem; /* 14px — body (base) */
+  --text-sm--line-height: 1.5;
+  --text-base: 0.875rem;
+  --text-base--line-height: 1.5;
+  --text-md: 1.0625rem; /* 17px — section title */
+  --text-md--line-height: 1.45;
+  --text-lg: 1.25rem; /* 20px */
+  --text-lg--line-height: 1.35;
+  --text-xl: 1.5rem; /* 24px — page title */
+  --text-xl--line-height: 1.3;
+  --text-2xl: 1.8125rem; /* 29px */
+  --text-2xl--line-height: 1.25;
+  --text-figure: 2rem; /* 32px — headline figures */
+  --text-figure--line-height: 1.1;
+  --text-figure--letter-spacing: -0.03em;
+
+  /* Top bar / page-grid breakpoint: below this, chrome collapses to icon-only. */
+  --breakpoint-rail: 900px;
+
+  --animate-pulse-dot: pulse-dot 1.6s ease-in-out infinite;
+
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.35;
+    }
+  }
+}
+
+/* Tabular figures for tables and stats — durations, counts, timestamps must not jitter.
+   `.tabular-nums` duplicates Tailwind's own built-in utility of the same name; kept so a
+   bare `<table>` gets it too without every cell needing the class. */
+table,
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Selection and scrollbars inside the dashboard's scrollable panels (JobLogs, JobSteps,
+   the execution timeline) follow the palette instead of the browser default. */
+::selection {
+  background: hsl(var(--plume) / 0.32);
+  color: hsl(var(--sand-100));
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--ink-500)) transparent;
+}
+
+/*
+ * Live text swap (LiveText): the old value exits upwards with a touch of blur, the new one
+ * enters from below. Used for numbers/status words the dashboard refreshes in place.
+ */
+.live-text {
+  display: inline-block;
+  transform: translateY(0);
+  filter: blur(0);
+  opacity: 1;
+  transition:
+    transform 150ms ease-in-out,
+    filter 150ms ease-in-out,
+    opacity 150ms ease-in-out;
+}
+.live-text.is-exit {
+  transform: translateY(-4px);
+  filter: blur(2px);
+  opacity: 0;
+}
+.live-text.is-enter-start {
+  transform: translateY(4px);
+  filter: blur(2px);
+  opacity: 0;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-text {
+    transition: none !important;
+  }
+}
+
+/* Dotted plot surface behind ActivityChart. */
+.chart-surface {
+  background-image: radial-gradient(circle, currentColor 0.55px, transparent 0.55px);
+  background-size: 12px 12px;
+  opacity: 0.18;
+}
+
+/*
+ * Sturdle mark (SturdleMark): one number drives the whole turtle — head, flippers and tail
+ * reach out by --reach (0 tucked, 1 out), so they move together on every frame.
+ */
+@property --reach {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+.sturdle-mark {
+  --reach: 1;
+  overflow: visible;
+}
+.sturdle-mark__head {
+  transform-box: view-box;
+  transform: translateY(calc((1 - var(--reach)) * 20px));
+}
+.sturdle-mark__limb {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  transform: scaleX(calc(0.25 + var(--reach) * 0.75));
+}
+.sturdle-mark__tail {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+  transform: scaleY(var(--reach));
+}
+.sturdle-mark--tucked {
+  --reach: 0;
+}
+.sturdle-mark--out {
+  animation: sturdle-mark-out 760ms both;
+}
+.sturdle-mark--nod {
+  animation: sturdle-mark-nod 480ms ease-in-out both;
+}
+@keyframes sturdle-mark-out {
+  0% {
+    --reach: 0;
+    animation-timing-function: cubic-bezier(0.45, 0, 0.2, 1);
+  }
+  70% {
+    --reach: 1;
+    animation-timing-function: ease-in-out;
+  }
+  80% {
+    --reach: 1.08;
+  }
+  90% {
+    --reach: 0.97;
+  }
+  100% {
+    --reach: 1;
+  }
+}
+@keyframes sturdle-mark-nod {
+  0% {
+    --reach: 1;
+  }
+  30% {
+    --reach: 0.9;
+  }
+  65% {
+    --reach: 1.05;
+  }
+  100% {
+    --reach: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sturdle-mark--tucked {
+    --reach: 1;
+  }
+  .sturdle-mark--out,
+  .sturdle-mark--nod {
+    animation: none;
+  }
+}

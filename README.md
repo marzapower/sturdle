@@ -1,7 +1,7 @@
 # Sturdle
 
-Durable background jobs, crons and step functions for TypeScript, running on the Postgres you
-already have. Jobs, steps and logs live in a schema of your own database; workers run in your
+Durable background jobs, crons and step functions for TypeScript, running on the database you
+already have: Postgres today, Redis next (planned). Jobs, steps and logs live in a schema of your own database; workers run in your
 own process; there is nothing to provision, no migration command and no dashboard to host
 somewhere else. The engine, the Postgres adapter and the console components are MIT. Flow
 control and retry-aware alerts will be [Sturdle Pro](docs/pro.md), a flat licence per

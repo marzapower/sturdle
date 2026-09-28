@@ -13,16 +13,6 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./mark": {
-      "sturdle-source": "./src/components/SturdleMark.tsx",
-      "types": "./dist/components/SturdleMark.d.ts",
-      "import": "./dist/components/SturdleMark.js"
-    },
-    "./mark-geometry": {
-      "sturdle-source": "./src/lib/sturdle-mark.ts",
-      "types": "./dist/lib/sturdle-mark.d.ts",
-      "import": "./dist/lib/sturdle-mark.js"
-    },
     "./styles/tokens.css": "./styles/tokens.css"
   },
   "main": "./dist/index.js",

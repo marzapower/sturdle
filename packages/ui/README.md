@@ -2,7 +2,7 @@
 
 Design tokens and presentational React components for the Sturdle job console: status badges
 and dots, the worker meter, the job timeline (one lane per attempt), step and log lists, the
-fleet table, the activity chart, and the `SturdleMark` turtle mark.
+fleet table and the activity chart. The Sturdle name and logo are not part of this package.
 
 Every component takes its data via props — no data fetching, no router, no query library — so
 the package works in any React 19 host (Next.js, Vite, Remix). Styling is Tailwind v4,
@@ -25,12 +25,11 @@ npm i @sturdle/ui react react-dom
 ```
 
 ```tsx
-import { JobDetailTimeline, StatusBadge, SturdleMark } from "@sturdle/ui";
+import { JobDetailTimeline, StatusBadge } from "@sturdle/ui";
 
 export function JobHeader({ status }: { status: "completed" | "failed" }) {
   return (
     <header>
-      <SturdleMark size={28} />
       <StatusBadge status={status} />
     </header>
   );
@@ -39,12 +38,10 @@ export function JobHeader({ status }: { status: "completed" | "failed" }) {
 
 Entry points:
 
-| Import                          | What it is                                                   |
-| ------------------------------- | ------------------------------------------------------------ |
-| `@sturdle/ui`                   | Every component, helper and view-model type                  |
-| `@sturdle/ui/mark`              | `SturdleMark` alone (no chart dependency pulled in)          |
-| `@sturdle/ui/mark-geometry`     | The mark's paths and palette (`shellPath`, `MARK_COLORS`, …) |
-| `@sturdle/ui/styles/tokens.css` | The console tokens: one dark palette, `plume` as the accent  |
+| Import                          | What it is                                                  |
+| ------------------------------- | ----------------------------------------------------------- |
+| `@sturdle/ui`                   | Every component, helper and view-model type                 |
+| `@sturdle/ui/styles/tokens.css` | The console tokens: one dark palette, `plume` as the accent |
 
 Components that need browser APIs (`ActivityChart`, `JobDetailTimeline`, `LiveText`, …) carry
 the `"use client"` directive, so they can be imported from React Server Components directly.

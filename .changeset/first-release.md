@@ -13,4 +13,4 @@ First public release.
 - `@sturdle/postgres`: the Postgres storage adapter on the raw `pg` driver, with a dedicated
   schema (`sturdle` by default) and self-applying versioned migrations.
 - `@sturdle/ui`: the console design tokens (`styles/tokens.css`) and the presentational
-  dashboard components, plus the `SturdleMark` turtle mark.
+  dashboard components.

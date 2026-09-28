@@ -31,9 +31,6 @@ export type { WorkerMeterProps } from "./components/WorkerMeter.js";
 export { ErrorNotice } from "./components/ErrorNotice.js";
 export type { ErrorNoticeProps } from "./components/ErrorNotice.js";
 
-export { SturdleMark } from "./components/SturdleMark.js";
-export type { SturdleMarkProps } from "./components/SturdleMark.js";
-
 // ---------------------------------------------------------------------------------------------
 // Dashboard
 // ---------------------------------------------------------------------------------------------
@@ -119,17 +116,6 @@ export { formatRate, toFleetRows } from "./lib/fleet.js";
 export type { FleetRow } from "./lib/fleet.js";
 
 export { jobPath, JOBS_PATH, taskCodeFromSplat, taskPath, TASKS_PATH } from "./lib/paths.js";
-
-export {
-  FLIPPERS,
-  hexagonPath,
-  hexagonVertices,
-  MARK_COLORS,
-  MARK_VIEWBOX,
-  SCUTES,
-  shellPath,
-} from "./lib/sturdle-mark.js";
-export type { Flipper, Scute } from "./lib/sturdle-mark.js";
 
 export { buildTimelineModel } from "./lib/timeline-model.js";
 export type {

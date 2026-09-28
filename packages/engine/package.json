@@ -1,6 +1,6 @@
 {
   "name": "@sturdle/engine",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Durable background jobs, crons and step functions for TypeScript, storage-agnostic behind a small DatabaseAdapter interface.",
   "license": "MIT",
   "type": "module",
